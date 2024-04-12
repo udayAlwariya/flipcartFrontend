@@ -19,8 +19,8 @@ export function Category(){
     return(
         <div>
          <Carousel responsive={responsive} removeArrowOnDeviceType={["mobile"]} className=" sm:hidden" infinite={true}>
-            {navData.map((value)=>{
-              return <img src={value.url} alt="" />
+            {navData.map((value,index)=>{
+              return <img key={index} src={value.url} alt="" />
             })}
         </Carousel>
         <div className="sm:flex hidden w-fit mx-auto mt-3">

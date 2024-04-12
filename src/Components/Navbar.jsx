@@ -56,20 +56,15 @@ export function Navbar(){
     }
     return(
         <div className="relative">
-         <div className={` ${(isActive())?"pl-14 py-4":"flex"} font-semibold items-center text-white bg-customBlue justify-around py-4`}>
-            <Link to="/"><img src={img2} className={`sm:w-[9vw] w-[30vw] ml-4`}/></Link>
+         <div className={` ${(isActive())?"pl-14 py-4":"flex"} font-semibold items-center text-white bg-customBlue justify-between py-4 sm:px-10 px-5`}>
+            <Link to="/"><img src={img2} className="w-[130px]"/></Link>
             {isActive()?"": <div className={`flex space-x-14 ${!isUserLoggedIn && "mr-[10.5vw]"}`}>
-            <div className=" hidden sm:flex items-center relative">
-            <IoSearchOutline className="absolute left-2 text-2xl text-gray-500" />
-            <input type="text" onChange={(e)=>changeHandler(e)} value={search} className="w-[45vw] pl-10 rounded-md text-black placeholder:text-lg placeholder:text-gray-500 py-2 outline-none bg-gray-100"  placeholder="Search for Products, Brands and More" />
-            </div>
-
             <div className="flex items-center">
             <div className="flex items-center text-lg space-x-1">
             <CgProfile className="text-2xl" />
             {isUserLoggedIn?<h1 className="cursor-pointer" onClick={logoutHandler}>Logout</h1>:<Link to="/signup"><h1>SignUp</h1></Link>}
             </div>
-             <IoMenu onClick={()=>setOnToggle(prev=>!prev)} className="text-2xl ml-10 cursor-pointer sm:hidden"/>
+             {isUserLoggedIn && <IoMenu onClick={()=>setOnToggle(prev=>!prev)} className="text-2xl ml-5 cursor-pointer sm:hidden"/>}
             </div>
             
            {isUserLoggedIn && <div className="sm:flex hidden items-center space-x-[3vw]">
@@ -114,12 +109,12 @@ export function Navbar(){
             </div>
             </div>}
 
-
-            <div className="flex sm:hidden items-center relative">
-            <IoSearchOutline className="absolute left-2 text-2xl text-gray-500" />
-            <input type="text" onChange={(e)=>changeHandler(e)} value={search} className="w-full pl-10 rounded-md text-black placeholder:text-lg placeholder:text-gray-500 py-2 outline-none bg-gray-100"  placeholder="Search for Products, Brands and More" />
+            {isActive()?"":<><div className="flex mt-2 items-center relative">
+            <IoSearchOutline className="absolute left-4 text-2xl text-gray-500" />
+            <input type="text" onChange={(e)=>changeHandler(e)} value={search} className="w-full pl-12 rounded-md text-black placeholder:text-lg placeholder:text-gray-500 py-3 outline-none bg-gray-100"  placeholder="Search for Products, Brands and More" />
             </div>
-            {search.length>0 && <SearchResult isUserLoggedIn={isUserLoggedIn}/>}
+            {search.length>0 && <SearchResult isUserLoggedIn={isUserLoggedIn}/>}</>}
+            
         </div>
        
     )

@@ -22,11 +22,10 @@ export function WishList(){
         .catch((e)=>console.log(e))
     },[])
     return(
-        <>
-        {wishList.length ? <div><h1 className="pl-[5vw] mt-[10vh] text-lg font-semibold">My Wishlist {wishList.length} item</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-5 sm:pr-8">
+        <div>
+        {wishList.length ? <div className=" relative pt-5"><h1 className=" border sm:w-9/12 pl-2 shadow-sm min-h-[10vh] space-y-2 font-semibold text-xl flex items-center bg-gray-100 w-11/12 mx-auto sm:mx-[15vw]">My Wishlist {wishList.length}</h1>
         {wishList.map((wish,index)=><Wish key={index} setCartItems={setCartItems} cartItems={cartItems} setWishList={setWishList} wishList={wishList} wish={wish}/>)}
-        </div></div>:<EmptyWishList/>}
-        </>
+        </div>:<EmptyWishList/>}
+        </div>
     )
 }

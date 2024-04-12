@@ -19,7 +19,7 @@ export function AmountSection(){
         return acc += items.price.cost*items.quantity
     },0)
     return(
-        <div>
+        <div className="border p-3">
             <h1 className="py-3 pl-4 font-semibold text-gray-400">PRICE DETAILS</h1>
             <hr />
             <div className="w-11/12 mt-4 text-md space-y-4 ml-4">

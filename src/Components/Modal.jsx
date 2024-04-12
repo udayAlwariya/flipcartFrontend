@@ -1,14 +1,14 @@
 import axios from "axios"
 import { ImCross } from "react-icons/im";
 import { useState } from "react"
-import { useRecoilState, useSetRecoilState } from "recoil"
+import {useSetRecoilState} from "recoil"
 import { addressAtom, modalAtom, selectedAddress } from "../atom"
 
 export function Modal(){
     const url = "https://flipkartbackend-f609.onrender.com"
     const setAddresses = useSetRecoilState(addressAtom)
     const setModal = useSetRecoilState(modalAtom)
-    const [add,addressSelected] = useRecoilState(selectedAddress)
+    const addressSelected = useSetRecoilState(selectedAddress)
     const [formData,setFormData] = useState({
         name : "",
         mobile : "",
@@ -35,13 +35,13 @@ export function Modal(){
             },
             data : formData
         })
-        .then(res=>{
+        .then(()=>{
             addressSelected({})
             setAddresses(prev=>[...prev,formData])
             setModal(false)
             
         })
-        .catch(e=>console.log("error"))
+        .catch(()=>console.log("error"))
     }
     return(
         <div className="h-[100vh] pt-20 bg-gray-100">

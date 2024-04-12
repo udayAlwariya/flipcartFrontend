@@ -24,7 +24,7 @@ export function AddressList({address,index}){
                 Authorization : localStorage.getItem("token")
             }
         })
-        .then((res)=>{
+        .then(()=>{
             const filteredAddresses = addresses.filter(adrs=>adrs._id != id)
             setAddresses(filteredAddresses)
         })
@@ -33,8 +33,7 @@ export function AddressList({address,index}){
     }
 
     return(
-        <div className="sm:mx-[25vw] mx-auto w-11/12 sm:w-8/12 pb-5 ">
-           
+        <div className="sm:mx-[25vw] sm:max-md:w-[50vw] md:max-lg:w-[50vw] sm:max-md:mx-5 md:max-lg:mx-5 md:mx-[25vw] mx-auto w-11/12 sm:w-8/12 pb-5 ">
             <h1 className="text-sm font-semibold mt-5 text-gray-700">Address {index+1}</h1>
             <div className="shadow-md pl-3 py-4 border mt-5">
                 <div className="flex space-x-2">

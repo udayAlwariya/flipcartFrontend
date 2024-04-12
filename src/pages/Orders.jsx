@@ -22,10 +22,10 @@ export function Orders(){
     },[])
     return(
         <>
-        {orders.length==0?<EmptyOrder/>: <div  className="border sm:pl-14 pt-10 space-y-5 bg-gray-100 min-h-[91vh]">
+        {orders.length==0?<EmptyOrder/>: <div  className="sm:pl-14 pt-10 space-y-5 ">
            {orders && orders.map((value)=>{
-                return value.cartItems.map((val)=>{
-                    return <Link to={`/orderDetails/${val._id}/${value._id}`}><Order value={val}/></Link>
+                return value.cartItems.map((val,index)=>{
+                    return <Link key={index} to={`/orderDetails/${val._id}/${value._id}`}><Order value={val}/></Link>
                 })
            })}
         </div>}

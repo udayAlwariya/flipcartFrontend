@@ -9,7 +9,7 @@ export function useDeleteWish(cartItems,wishList,setWishList,id){
             Authorization : localStorage.getItem("token")
         }
     })
-    .then(res=>{
+    .then(()=>{
     let filteredArray = wishList.filter(val=>val.id!=id)
     setWishList(filteredArray)
     })

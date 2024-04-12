@@ -40,7 +40,8 @@ export function Signin(){
                 })
 
         }).catch((e)=>{
-            toast.error('Invalid Inputs', {
+            console.log(e)
+            toast.error(e.response.data.message, {
                 position: "top-center",
                 autoClose: 1000,
                 hideProgressBar: false,

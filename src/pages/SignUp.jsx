@@ -52,7 +52,7 @@ export function Signup(){
             let token = res.data.token
             localStorage.setItem("token","Bearer " + token)
         }).catch((error)=>{
-            toast.error("Credentials Invalid", {
+            toast.error(error.response.data.message, {
                 position: "top-center",
                 autoClose: 1000,
                 hideProgressBar: false,
@@ -62,7 +62,7 @@ export function Signup(){
                 progress: undefined,
                 theme: "light",
                 });
-            console.log("EE" + error)
+            console.log(error)
         })
     }
     return(

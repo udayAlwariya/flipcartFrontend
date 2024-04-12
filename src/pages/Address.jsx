@@ -5,22 +5,37 @@ import axios from "axios";
 import { AddressList } from "../Components/AddressLists";
 import { AddNewAddress } from "../Components/AddNewAddress";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { addressAtom, cartAtom, renderAtom, selectedAddress } from "../atom";
+import { addressAtom, cartAtom, renderAtom, selectedAddress, userLoggedIn } from "../atom";
 import { toast } from "react-toastify";
 import { SelectAddress } from "../Components/SelectAddress";
 import { useLocation,useNavigate} from "react-router-dom";
 import { useEmptyCart } from "../Custom hooks/useEmptyCart";
+import { useAuth } from "../Custom hooks/useAuth";
 export function Address(){
 
     const [cartItems,setCartItems] = useRecoilState(cartAtom)
     const [address,setAddresses] = useRecoilState(addressAtom)
     const [selectedAdress,setSelectedAddress] = useRecoilState(selectedAddress)
     const render = useRecoilValue(renderAtom)
+    const isUserLoggedIn = useRecoilValue(userLoggedIn)
     const url = "https://flipkartbackend-f609.onrender.com"
     const {pathname} = useLocation()
     const navigate = useNavigate()
-
+    
     useEffect(()=>{
+        if(!isUserLoggedIn){
+            toast.error('please Login first!', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+            navigate("/")
+        }
         axios({
             method : "get",
             url : `${url}${pathname}`,
@@ -32,7 +47,7 @@ export function Address(){
             setCartItems(res.data.response)
             setSelectedAddress({})
         })
-        .catch((e)=>{
+        .catch(()=>{
             console.log("Error")
         })
     },[])
@@ -54,6 +69,19 @@ export function Address(){
     },[render])
 
     async function handler(){
+        if(Object.keys(selectedAdress).length>0){
+            toast.info('Just a moment please!', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        }
+        
         if(Object.keys(selectedAdress).length>0){
             const totalPrice = cartItems.reduce((acc,items)=>{
                 return acc += items.price.cost*items.quantity
@@ -125,7 +153,7 @@ export function Address(){
     }
     return(
         <>
-         <div className="sm:space-x-[15vw] grid grid-cols-1 sm:grid-cols-2">
+         <div className="sm:space-x-10 lg:space-x-[10vw] grid grid-cols-1 sm:grid-cols-2">
             {address.length>0? <div>
             <SelectAddress/>
         {address && address.map((value,index)=>{
@@ -133,7 +161,7 @@ export function Address(){
         })}
         <AddNewAddress/> 
         </div>:<CreateAddress setAddresses={setAddresses}/>}
-        <div className="sm:w-6/12 w-11/12 mx-auto mt-10 h-[41vh] bg-white ">
+        <div className="sm:w-11/12 w-11/12 mx-auto sm:mx-0 lg:w-8/12 sm:mr-4 mt-10 h-[41vh] bg-white ">
             <div className=" pt-3 shadow-md">
             <AmountSection/>
             <div onClick={handler} className=" py-2 cursor-pointer text-center font-semibold text-white bg-blue-500 mt-2">Continue</div>

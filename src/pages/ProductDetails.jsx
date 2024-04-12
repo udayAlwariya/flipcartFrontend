@@ -29,7 +29,7 @@ export function ProductDetails(){
             setProduct(res.data.product[0])
             
         })
-        .catch((e)=>{
+        .catch(()=>{
             console.log("ERROR")
         })
         
@@ -48,7 +48,7 @@ export function ProductDetails(){
                 setLike(true)
             }
         })
-        .catch((e)=>console.log("ERROR"))
+        .catch(()=>console.log("ERROR"))
     },[id])
 
     function addToCart(){
@@ -59,7 +59,7 @@ export function ProductDetails(){
                 Authorization : localStorage.getItem("token")
             }
         })
-        .then((res)=>{
+        .then(()=>{
             navigate("/checkout/cart")
             toast.success('ADDED TO CART', {
                 position: "top-center",
@@ -73,6 +73,16 @@ export function ProductDetails(){
                 });
         })
         .catch((error)=>{
+            toast.error('Please Login First', {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
             console.log("The error is",error)
         })
     }
@@ -105,17 +115,30 @@ export function ProductDetails(){
                     progress: undefined,
                     theme: "dark",
                     });
+                    
             })
-            .catch(e=>console.log("Error"))
+            .catch(()=>{
+                toast.error('Please Login First', {
+                    position: "top-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
+                    
+            })
         }
     }
 
     return(
         <div>    
         {Object.keys(product).length && <div className="sm:flex flex-row mt-5 w-11/12 mx-auto">
-            <div className="flex-col ml-10">
+            <div className="flex-col sm:ml-10">
                 <div className="relative">
-            <img src={product.detailUrl} className="shadow-md px-5 py-5" alt="" />
+            <img src={product.detailUrl} className=" w-full sm:shadow-md px-5 py-5" alt="" />
             {like?<GoHeartFill onClick={isActive} className={`text-3xl absolute top-0 right-2 cursor-pointer text-red-600`}/>:<IoMdHeartEmpty className={`text-3xl absolute top-0 cursor-pointer right-2`} onClick={isActive}/>}
                 </div>
             <div className="font-semibold flex  text-white mt-2 space-x-4">
@@ -130,7 +153,7 @@ export function ProductDetails(){
             </div>
             </div>
 
-            <div className="pl-3  space-y-4 ml-2 w-full sm:w-8/12 mt-10">
+            <div className="pl-3 space-y-4 ml-2 w-full sm:w-8/12 mt-10 sm:mt-0">
                 <h1 className="text-lg font-semibold">{product.title.longTitle}</h1>
                 <h1 className="text-md text-gray-800">{product.description}</h1>
                 <div className="flex space-x-3">

@@ -9,10 +9,10 @@ export function useEmptyCart(setCartItems){
             Authorization : localStorage.getItem("token")
         }
     })
-    .then((res)=>{
+    .then(()=>{
         setCartItems([])
     })
-    .catch((e)=>{
+    .catch(()=>{
         console.log("ERROR")
     })
 }

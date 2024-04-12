@@ -1,4 +1,5 @@
 import axios  from "axios";
+import { toast } from "react-toastify";
 
 export function useAddToCart(id,setCartItems){
    
@@ -11,6 +12,16 @@ export function useAddToCart(id,setCartItems){
     })
     .then((res)=>{
         setCartItems(prev=>[...prev,res.data.cartItem])
+        toast.success('Added to Cart', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            })
     })
     
     

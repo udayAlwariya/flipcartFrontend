@@ -18,7 +18,7 @@ export function Cart(){
                 Authorization : localStorage.getItem("token")
             }
         })
-        .then((res)=>{
+        .then(()=>{
             const updatedCartItems = cartItems.map(item => {
                 if (item.id === id) {
                   return { ...item, quantity: item.quantity + 1 };
@@ -27,7 +27,7 @@ export function Cart(){
               });
               setCartItems(updatedCartItems);
         })
-        .catch((e)=>{
+        .catch(()=>{
             console.log("ERROR")
         })
     }
@@ -40,7 +40,7 @@ export function Cart(){
                 Authorization : localStorage.getItem("token")
             }
         })
-        .then((res)=>{
+        .then(()=>{
             let productQuantity = cartItems.find(value=>value.id==id)
             if(productQuantity.quantity==1){
                 let filteredItems = cartItems.filter(val=>val.id!=id)
@@ -57,7 +57,7 @@ export function Cart(){
             }
             
         })
-        .catch((e)=>{
+        .catch(()=>{
             console.log("error")
         })
     }

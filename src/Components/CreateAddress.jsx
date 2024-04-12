@@ -31,14 +31,14 @@ export function CreateAddress({setAddresses}){
             },
             data : formData
         })
-        .then(res=>{
+        .then(()=>{
             setAddresses(prev=>[...prev,formData])
         })
         .catch(e=>console.log(e))
     }
 
     return(
-        <div className="sm:mx-[25vw] mt-5 sm:w-7/12 w-full pb-5 shadow-md">
+        <div className="mt-5 sm:w-full lg:w-8/12 sm:ml-[3vw] pb-5 shadow-md">
             <div className="flex-col space-y-3 py-3 flex">
                 <h1 className="ml-3 text-sm">CONTACT DETAILS</h1>
                 <input type="text" onChange={handler} className="border py-3 mx-3 rounded-md placeholder:pl-2" name="name" placeholder="Name*" />
